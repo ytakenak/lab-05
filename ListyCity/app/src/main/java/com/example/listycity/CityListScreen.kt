@@ -32,6 +32,7 @@ fun CityListScreen(
     cities: List<City>,
     onAddCity: (City) -> Unit,
     onUpdateCity: (City, City) -> Unit,
+    onDeleteCity: (City) -> Unit,
     modifier: Modifier = Modifier
 ) {
     var newCityName by remember { mutableStateOf("") }
@@ -128,30 +129,49 @@ fun CityListScreen(
 
                 Spacer(modifier = Modifier.width(8.dp))
 
-                Button(
-                    modifier = Modifier.padding(vertical = 12.dp),
-                    onClick = {
-                        val cityToUpdate = selectedCity
-                        if (
-                            cityToUpdate != null &&
-                            editedCityName.isNotBlank() &&
-                            editedProvinceName.isNotBlank()
-                        ) {
-                            onUpdateCity(
-                                cityToUpdate,
-                                City(
-                                    name = editedCityName,
-                                    province = editedProvinceName
+                Column(){
+                    Button(
+                        modifier = Modifier.padding(vertical = 12.dp),
+                        onClick = {
+                            val cityToUpdate = selectedCity
+                            if (
+                                cityToUpdate != null &&
+                                editedCityName.isNotBlank() &&
+                                editedProvinceName.isNotBlank()
+                            ) {
+                                onUpdateCity(
+                                    cityToUpdate,
+                                    City(
+                                        name = editedCityName,
+                                        province = editedProvinceName
+                                    )
                                 )
-                            )
 
-                            selectedCity = null
-                            editedCityName = ""
-                            editedProvinceName = ""
+                                selectedCity = null
+                                editedCityName = ""
+                                editedProvinceName = ""
+                            }
                         }
+                    ) {
+                        Text("UPDATE CITY")
                     }
-                ) {
-                    Text("UPDATE CITY")
+
+                    Button(
+                        modifier = Modifier.padding(vertical = 12.dp),
+                        onClick = {
+                            val cityToDelete = selectedCity
+                            if (cityToDelete != null) {
+                                onDeleteCity(
+                                    cityToDelete
+                                )
+                                selectedCity = null
+                                editedCityName = ""
+                                editedProvinceName = ""
+                            }
+                        }
+                    ) {
+                        Text("Delete City")
+                    }
                 }
             }
         }
@@ -213,7 +233,8 @@ fun CityListScreenPreview() {
                 City("Calgary", "AB")
             ),
             onAddCity = {},
-            onUpdateCity = { _, _ -> }
+            onUpdateCity = { _, _ -> },
+            onDeleteCity = {}
         )
     }
 }
