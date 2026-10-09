@@ -5,8 +5,6 @@
 - **Full Name:** `Yuta Takenaka`
 - **CCID:** `ytakenak`
 
-## References and Resources
-
-List any resources used here, or simply put `N/A` if not applicable.
+## References and Resources: N/A
 
 ## Verbal Collaboration: N/A
